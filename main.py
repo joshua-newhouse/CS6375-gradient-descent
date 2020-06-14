@@ -15,14 +15,14 @@ class Application:
     # __tini__
 
     def start(self):
-        runs = [ Run("1", self.dataSet, 1, 100),
-                 Run("2", self.dataSet, 1, 100),
-                 Run("3", self.dataSet, 1, 100),
-                 Run("4", self.dataSet, 1, 100),
-                 Run("5", self.dataSet, 1, 100),
-                 Run("6", self.dataSet, 1, 100),
-                 Run("7", self.dataSet, 1, 100),
-                 Run("8", self.dataSet, 1, 100) ]
+        runs = [ Run("1", self.dataSet, -1000, 1000),
+                 Run("2", self.dataSet, 1000, 3000),
+                 Run("3", self.dataSet, -3000, -1000),
+                 Run("4", self.dataSet, 3000, 5000),
+                 Run("5", self.dataSet, -5000, -3000),
+                 Run("6", self.dataSet, 5000, 7000),
+                 Run("7", self.dataSet, -7000, -5000),
+                 Run("8", self.dataSet, -10000, 10000) ]
 
         for run in runs:
             run.start()
