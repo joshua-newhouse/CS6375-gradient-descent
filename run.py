@@ -5,7 +5,7 @@ from hypothesis import Hypothesis
 from weights import Weights
 
 
-ALLOWABLE_MSE_DELTA = 0.1
+ALLOWABLE_MSE_DELTA = 0.01
 MAX_ITERATIONS = 1000000
 STARTING_ALPHA = 10000
 ALPHA_BASE = 2
@@ -54,14 +54,14 @@ class Run (Process):
         output = """
         ==========================================================================================================================================
         RUN RESULTS for thread {0}:
-        WEIGHT VECTOR:
+        ALPHA and ITERATIONS:
         {1}
-        ----------------------------------------------------------------------------------
-        Lowest training data MSE:
         {2}
         ----------------------------------------------------------------------------------
-        ALPHA and ITERATIONS:
+        WEIGHT VECTOR:
         {3}
+        ----------------------------------------------------------------------------------
+        Lowest training data MSE:
         {4}
         ----------------------------------------------------------------------------------
         Test data MSE:
@@ -71,10 +71,10 @@ class Run (Process):
 
         self.testingErrors.updateToLower(self.weights, self.hypothesis)
         print(output.format(self.threadID,
-                            self.weights.vector,
-                            self.trainingErrors.mse,
                             self.alpha,
                             self.iterations,
+                            self.weights.vector,
+                            self.trainingErrors.mse,
                             self.testingErrors.mse))
     # print
 # Run
