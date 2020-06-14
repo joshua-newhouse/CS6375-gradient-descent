@@ -31,10 +31,6 @@ class Application:
         for run in runs:
             run.join()
         # for
-
-        for run in runs:
-            run.print()
-        # for
     # start
 # Application
 
@@ -42,9 +38,7 @@ class Application:
 def main():
     app = Application(sys.argv[1])
     app.start()
-
-
-# niam
+# main
 
 if __name__ == "__main__":
     main()
