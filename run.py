@@ -5,10 +5,10 @@ from hypothesis import Hypothesis
 from weights import Weights
 
 
-ALLOWABLE_MSE_DELTA = 0.01
-MAX_ITERATIONS = 2000000
+ALLOWABLE_MSE_DELTA = 0.1
+MAX_ITERATIONS = 1000000
 STARTING_ALPHA = 10000
-ALPHA_BASE = 10
+ALPHA_BASE = 2
 
 class Run (Process):
     def __init__(self, threadID, dataSet, minStartWeight, maxStartWeight):
@@ -17,6 +17,9 @@ class Run (Process):
 
         self.weights = Weights(dataSet.getDataPoint(0).dimension())
         self.weights.generateRandom(minStartWeight, maxStartWeight)
+        weight = """*****\nThread {0} initial weights:\n{1}\n*****"""
+        print(weight.format(self.threadID, self.weights.vector))
+
         self.trainingErrors = Errors(dataSet.trainingDataPoints, dataSet.trainingActualValues)
         self.testingErrors = Errors(dataSet.testingDataPoints, dataSet.testingActualValues)
 
@@ -37,10 +40,9 @@ class Run (Process):
             if (not self.trainingErrors.updateToLower(self.weights, self.hypothesis)):
                 self.alpha /= ALPHA_BASE
                 self.weights.revert()
-                print("Reverted in thread {}".format(self.threadID))
             # if
 
-            if (self.iterations % 100 == 0):
+            if (self.iterations % 10 == 0):
                 self.alpha *= 1.1
             # if
         # while
@@ -55,7 +57,7 @@ class Run (Process):
         WEIGHT VECTOR:
         {1}
         ----------------------------------------------------------------------------------
-        Lowest MSE:
+        Lowest training data MSE:
         {2}
         ----------------------------------------------------------------------------------
         ALPHA and ITERATIONS:

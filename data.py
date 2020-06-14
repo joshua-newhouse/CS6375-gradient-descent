@@ -3,19 +3,17 @@ import numpy
 
 class DataPoint:
     def __init__(self, ndarrayLine):
-        self.vector = ndarrayLine
-
-    # __tini__
+        self.vector = numpy.append(ndarrayLine, [1])
+    # __init__
 
     def print(self):
         print(self.vector)
-
-    # tnirp
+    # print
 
     def get(self, index):
         return self.vector[index]
 
-    # teg
+    # get
 
     def dimension(self):
         return self.vector.size
@@ -50,9 +48,6 @@ class DataSet:
             else:
                 self.testingDataPoints.append(self.dataPoints[i])
                 self.testingActualValues.append(self.actualValues[i])
-
-
-
     # __tini__
 
     def printDataPoints(self, dataPoints):
